@@ -102,7 +102,7 @@ else:
 			call('rm results/det_'+str(det)+'_'+str(lamb) +'/*', shell=True);
 
 	#mode = 0; # With photometric calibration
-	#mode = 1; # Without photometric calibration
+	mode = 1; # Without photometric calibration
 	for seq in sequences:
 
 		for (det, fastThr, hark, lamb) in zip(detectionTypes, detectionTypeFastThreshold, harrisK, lambdaThreshold):

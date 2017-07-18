@@ -802,10 +802,14 @@ void CoarseInitializer::setFirst(	CalibHessian* HCalib, FrameHessian* newFrameHe
 	{
 		sel.currentPotential = 3;
 		int npts;
-		if(lvl == 0)
-			npts = sel.makeMaps(firstFrame, statusMap,densities[lvl]*w[0]*h[0],1,false,2);
-		else
-			npts = makePixelStatus(firstFrame->dIp[lvl], statusMapB, w[lvl], h[lvl], densities[lvl]*w[0]*h[0]);
+		if(lvl == 0) {
+			npts = sel.makeMaps(firstFrame, statusMap, densities[lvl] * w[0] * h[0], 1, false, 2);
+			std::cout << "ORBSLAM selection: " << npts << std::endl;
+		}
+		else {
+            npts = makePixelStatus(firstFrame->dIp[lvl], statusMapB, w[lvl], h[lvl], densities[lvl] * w[0] * h[0]);
+            std::cout << "lvl: " << lvl << " npts " << npts << std::endl;
+        }
 
 
 

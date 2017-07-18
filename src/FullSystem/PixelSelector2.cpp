@@ -300,15 +300,33 @@ int PixelSelector::makeMaps(
         std::vector<cv::KeyPoint> pts;
         oRBextractor->extractOnlyKeypoints(imgForDetection,cv::Mat(),pts);
 
+
+//        cv::Mat drawImg;
+//        cv::cvtColor(imgForDetection, drawImg, CV_GRAY2BGR);
+//        int edge = 0;
         for(unsigned int i=0;i<pts.size();i++)
         {
             int x = pts[i].pt.x+0.5;
             int y = pts[i].pt.y+0.5;
             map_out[x+y*wG[0]]=1;
             numHave++;
+
+//            if ( pts[i].class_id == 1)
+//                cv:: circle(drawImg, pts[i].pt, 2, cv::Scalar(0,255,0) );
+//            else if ( pts[i].class_id == 2) {
+//                cv::circle(drawImg, pts[i].pt, 2, cv::Scalar(0, 0, 255));
+//                edge++;
+//            }
+//            else
+//                printf("WRONG!\n");
+
         }
 
-        printf("ORBSLAM selection: got %f / %f!\n", numHave, numWant);
+        printf("ORBSLAM selection: got %f / %f! \n", numHave, numWant);
+//        printf("ORBSLAM selection: got %f / %f! PercentEdges: %f\n", numHave, numWant, edge * 1.0 / pts.size());
+//        cv::imwrite("CEimg.png", drawImg);
+
+
         quotia = numWant / numHave;
 
         delete oRBextractor;

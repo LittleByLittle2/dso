@@ -851,11 +851,28 @@ void ORBextractor::ComputeKeyPointsOctTree(vector<vector<KeyPoint> >& allKeypoin
 
                     // Our modification of HARRIS corner/edge extractor
                     vector<Point2f> corners;
-                    vector<cv::Vec6f> lambdasVectors; // Not used but important due
+                    vector<cv::Vec6f> lambdasVectors; // Not used but important
 
                     cornerEdgeHarrisExtractor(mvImagePyramid[level].rowRange(iniY,maxY).colRange(iniX,maxX), corners, lambdasVectors, wantedNo, 10e-80, minDistanceOfFeatures, noArray(), 3, lambdaThreshold);
 
                     cv::KeyPoint::convert(corners, vKeysCell);
+
+                    for (int i=0;i<vKeysCell.size();i++) {
+                        cv::Vec6f v = lambdasVectors[i];
+                        float lambda1 = fabs(v(0));
+                        float lambda2 = fabs(v(3));
+//                        printf("Lambdas: %f %f\n", lambda1, lambda2);
+                        vKeysCell[i].response = max(lambda1, lambda2);
+
+
+                        if (max(lambda1,lambda2) / min(lambda1,lambda2) > 10 && min(lambda1,lambda2) > 0.01) {
+                            vKeysCell[i].class_id = 2; // Edge
+                        }
+                        else {
+                            vKeysCell[i].class_id = 1; // Corner
+                        }
+
+                    }
                 }
                 else
                 {

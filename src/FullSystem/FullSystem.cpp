@@ -1304,6 +1304,7 @@ void FullSystem::makeNewTraces(FrameHessian* newFrame, float* gtDepth)
 	pixelSelector->allowFast = true;
 	//int numPointsTotal = makePixelStatus(newFrame->dI, selectionMap, wG[0], hG[0], setting_desiredDensity);
 	int numPointsTotal = pixelSelector->makeMaps(newFrame, selectionMap,setting_desiredImmatureDensity);
+    printf("Next ORBSLAM2: %d\n", numPointsTotal);
 
 	newFrame->pointHessians.reserve(numPointsTotal*1.2f);
 	//fh->pointHessiansInactive.reserve(numPointsTotal*1.2f);

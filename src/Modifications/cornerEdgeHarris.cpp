@@ -95,7 +95,7 @@ namespace ORB_SLAM2
                     countCorner++;
                 }
                     // If only one lambda is above the threshold -> it is an edge
-                else if ( maxLambda > qualityThreshold ) {
+                else if ( maxLambda > qualityThreshold ) { // qualityThreshold
 
                     // We will sort by lambdas and we want edges to be sorted according to the difference in lambdas
                     // We also want to prefer corners so edge priority will be
